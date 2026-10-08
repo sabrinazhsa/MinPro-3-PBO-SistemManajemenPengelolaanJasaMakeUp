@@ -115,7 +115,7 @@ Berikut merupakan penerapan inheritance pada program ini:
 
 Inheritance atau pewarisan diterapkan pada program ini agar menghindari duplikasi kode dengan cara mewariskan atribut dari kelas induk ke kelas anak. Class `PemesananLayananMUA` berperan sebagai Superclass atau kelas induk yang memiliki data umum seperti idPesanan, tanggalPelaksanaan, status, dan objek Pelanggan. Class `MakeUpWisuda` dan class `MakeUpPengantin` berperan sebagai Subclass yang mewarisi atribut dari kelas induk dengan menggunakan kode `extends`. Sehingga setiap subclass tidak perlu menulis ulang atribut dari superclass. 
 
-## Penjelasan Penerapan Polymorphism dan Abstarction
+## Penjelasan Penerapan Polymorphism dan Abstraction
 ### 1. Polymorphism
 Berikut merupakan penerapan polymorphism pada subclass `MakeUpWisuda` dan `MakeUpPengantin` dengan menggunakan methode overriding:
 
