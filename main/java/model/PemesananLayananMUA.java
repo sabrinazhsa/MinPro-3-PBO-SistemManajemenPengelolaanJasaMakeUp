@@ -9,8 +9,8 @@ package model;
  * @author HP VICTUS
  */
 
-public class PemesananLayananMUA {
-
+public abstract class PemesananLayananMUA implements UntukDiskon {
+    public abstract double hitungTotalBiaya();
     private String idPesanan;
     private String tanggalPesanan;
     private String jenisMakeup;
@@ -28,26 +28,6 @@ public class PemesananLayananMUA {
         this.totalHarga = totalHarga;
         this.status = status;
         this.pelanggan = pelanggan;
-    }
-
-    public double hitungTotalBiaya() {
-        return totalHarga;
-    }
-
-    public void tampilkanDetailPesanan() {
-        System.out.println("ID Pesanan: " + idPesanan);
-        System.out.println("Tanggal   : " + tanggalPesanan);
-        System.out.println("Jenis Make Up     : " + jenisMakeup);
-        System.out.println("Total Harga:   " + totalHarga);
-        System.out.println("Status Pembayaran : " + status);
-    }
-
-    public String getidPesanan() { 
-        return idPesanan; 
-    }
-    
-    public String gettanggalPesanan() { 
-        return tanggalPesanan; 
     }
     
     public String getIdPesanan() { 
@@ -90,30 +70,29 @@ public class PemesananLayananMUA {
         this.status = status; 
     }
     
-    public String getjenisMakeup() { 
-        return jenisMakeup; 
-    }
-    
-    public double gettotalHarga() { 
-        return totalHarga; 
-    }
-    
-    public String getstatus() { 
-        return status; 
-    }
     public Pelanggan getPelanggan() { 
         return pelanggan; 
     }
+
     
-    public void setjenisMakeup(String jenisMakeup) { 
-        this.jenisMakeup = jenisMakeup; 
+    @Override
+    public double hitungTotalBiaya(double diskonPersen) {
+        if (diskonPersen < 0 || diskonPersen > 100) {
+            System.out.println("Diskon tidak valid, dianggap 0%.");
+            diskonPersen = 0;
+        }
+        double totalSebelumDiskon;
+        totalSebelumDiskon = this.hitungTotalBiaya();
+        double potongan = totalSebelumDiskon * (diskonPersen / 100);
+        return totalSebelumDiskon - potongan;
+    }
+
+    public void tampilkanDetailPesanan() {
+        System.out.println("ID Pesanan: " + idPesanan);
+        System.out.println("Tanggal   : " + tanggalPesanan);
+        System.out.println("Jenis Make Up     : " + jenisMakeup);
+        System.out.println("Total Harga:   " + totalHarga);
+        System.out.println("Status Pembayaran : " + status);
     }
     
-    public void settotalHarga(double totalHarga) { 
-        this.totalHarga = totalHarga; 
-    }
-    
-    public void setstatus(String status) { 
-        this.status = status; 
-    }
 }

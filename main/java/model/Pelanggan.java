@@ -43,16 +43,4 @@ public class Pelanggan {
     public void setNoHP(String noHP) {
         this.noHP = noHP;
     }
-
-    public String getnamaPelanggan() {
-        return namaPelanggan;
-    }
-
-    public String getalamat() {
-        return alamat;
-    }
-
-    public String getnoHP() {
-        return noHP;
-    }
 }

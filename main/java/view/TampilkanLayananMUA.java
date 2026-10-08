@@ -110,39 +110,46 @@ public class TampilkanLayananMUA {
         }
 
         if (pesanan != null) {
+            terapkanDiskonMember(pesanan);
             crud.tambahPemesanan(pesanan);
         }
     }
+    
+     private void terapkanDiskonMember(PemesananLayananMUA pesanan) {
+        System.out.println("Total biaya sebelum diskon: Rp " + (long) pesanan.hitungTotalBiaya());
+
+        boolean isMember = LayananValidator.inputYesNo(scanner, "Apakah pelanggan member (diskon 10%)? (Ya/Tidak): ");
+        
+        if (isMember) {
+            double totalSetelahDiskon = pesanan.hitungTotalBiaya(10);
+            pesanan.setTotalHarga(totalSetelahDiskon);
+        }
+        System.out.println("Total biaya yang harus dibayar: Rp " + (long) pesanan.getTotalHarga());
+     }
 
     private void menuUpdatePemesanan() {
-        PemesananLayananMUA pesananUpdate;
-        String idUp;
-        do {
-            idUp = LayananValidator.inputTeks(scanner, "Masukkan ID Pesanan yang diupdate: ");
-            pesananUpdate = crud.cariPemesanan(idUp);
-            if (pesananUpdate == null) {
-                System.out.println("ID Pesanan tidak ditemukan! Coba lagi.");
-            }
-        } while (pesananUpdate == null);
+        String idUp = LayananValidator.inputTeks(scanner, "Masukkan ID Pesanan yang diupdate: ");
+        PemesananLayananMUA pesananUpdate = crud.cariPemesanan(idUp);
 
-        String statusUp = LayananValidator.inputStatusPembayaran(scanner, "Masukkan Status Baru: ");
-        double hargaUp = LayananValidator.inputAngkaDesimal(scanner, "Masukkan Total Harga Baru: ");
+        if (pesananUpdate == null) {
+            System.out.println("ID Pesanan tidak ada!");
+            return;
+        }
+        
+        String statusUp = LayananValidator.inputStatusPembayaran(scanner, "Masukkan status pembayaran yang baru: ");
 
-        crud.updatePemesanan(idUp, statusUp, hargaUp);
+        crud.updatePemesanan(idUp, statusUp);
     }
 
     private void menuHapusPemesanan() {
-        PemesananLayananMUA pesananHapus;
-        String idHapus;
-        do {
-        idHapus = LayananValidator.inputTeks(scanner, "Masukkan ID Pesanan yang dihapus: ");
-        pesananHapus = crud.cariPemesanan(idHapus);
-        
-        if (pesananHapus == null) {
-            System.out.println("ID Pesanan tidak ditemukan! Coba lagi.");
-        }
-    } while (pesananHapus == null);
+        String idHapus = LayananValidator.inputTeks(scanner, "Masukkan ID Pesanan yang dihapus: ");
+        PemesananLayananMUA pesananHapus = crud.cariPemesanan(idHapus);
 
-    crud.hapusPemesanan(idHapus);
+        if (pesananHapus == null) {
+            System.out.println("ID Pesanan tidak ada!");
+            return;
+        }
+
+        crud.hapusPemesanan(idHapus);
     }
 }

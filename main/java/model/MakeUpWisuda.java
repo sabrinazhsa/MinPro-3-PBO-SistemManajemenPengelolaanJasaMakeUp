@@ -41,7 +41,7 @@ public class MakeUpWisuda extends PemesananLayananMUA {
         System.out.println("Retouch Kit      : " + (adaRetouchKit ? "Ya (+Rp50.000)" : "Tidak"));
         System.out.println("Total Biaya      : Rp " + (long) getTotalHarga());
     }
-
+    
     public int getJumlahOrangDirias() { return jumlahOrangDirias; }
     public void setJumlahOrangDirias(int jumlahOrangDirias) {
         this.jumlahOrangDirias = jumlahOrangDirias;

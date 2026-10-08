@@ -64,8 +64,11 @@ public class LayananValidator {
     
     public static String inputStatusPembayaran(Scanner input, String prompt) {
     System.out.print(prompt);
-    while (true) {
+     while (true) {
         String teks = input.nextLine().trim();
+        if (teks.isEmpty()) {
+            return teks; // Enter kosong = tidak ada perubahan
+        }
         if (teks.equalsIgnoreCase("Lunas") || teks.equalsIgnoreCase("Pending") || teks.equalsIgnoreCase("DP")) {
             return teks;
         }

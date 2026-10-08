@@ -18,7 +18,7 @@ import model.MakeUpWisuda;
  */
 public class LayananCRUD {
 
-    private ArrayList<PemesananLayananMUA> daftarPesanan = new ArrayList<>();
+    private final ArrayList<PemesananLayananMUA> daftarPesanan = new ArrayList<>();
     private int counterId = 1;
  
     public LayananCRUD() {
@@ -42,13 +42,13 @@ public class LayananCRUD {
             return;
         }
 
-        if (cariPemesanan(pesanan.getidPesanan()) != null) {
-            System.out.println("ID Pesanan [" + pesanan.getidPesanan() + "] sudah digunakan. Gunakan ID lain!");
+        if (cariPemesanan(pesanan.getIdPesanan()) != null) {
+            System.out.println("ID Pesanan [" + pesanan.getIdPesanan() + "] sudah digunakan. Gunakan ID lain!");
             return;
         }
 
         daftarPesanan.add(pesanan);
-        System.out.println("Pesanan dengan ID [" + pesanan.getidPesanan() + "] berhasil ditambahkan!");
+        System.out.println("Pesanan dengan ID [" + pesanan.getIdPesanan() + "] berhasil ditambahkan!");
     }
 
     public void tampilkanSemuaPemesanan() {
@@ -67,14 +67,14 @@ public class LayananCRUD {
         Pelanggan pelanggan = p.getPelanggan();
         
         System.out.println("   -----------------------------------------------------------------");
-        System.out.println((i + 1) + ". ID Pesanan          : " + p.getidPesanan());
-        System.out.println("   Nama Pelanggan      : " + pelanggan.getnamaPelanggan());
-        System.out.println("   Alamat Pelanggan    : " + pelanggan.getalamat());
-        System.out.println("   Nomor HP            : " + pelanggan.getnoHP());
-        System.out.println("   Jenis Makeup        : " + p.getjenisMakeup());
-        System.out.println("   Tanggal Pengerjaan  : " + p.gettanggalPesanan());
-        System.out.println("   Total Harga         : Rp" + formatRupiah.format(p.gettotalHarga()));
-        System.out.println("   Status Pembayaran   : " + p.getstatus());
+        System.out.println((i + 1) + ". ID Pesanan          : " + p.getIdPesanan());
+        System.out.println("   Nama Pelanggan      : " + pelanggan.getNamaPelanggan());
+        System.out.println("   Alamat Pelanggan    : " + pelanggan.getAlamat());
+        System.out.println("   Nomor HP            : " + pelanggan.getNoHP());
+        System.out.println("   Jenis Makeup        : " + p.getJenisMakeup());
+        System.out.println("   Tanggal Pengerjaan  : " + p.getTanggalPesanan());
+        System.out.println("   Total Harga         : Rp" + formatRupiah.format(p.getTotalHarga()));
+        System.out.println("   Status Pembayaran   : " + p.getStatus());
         System.out.println("   -----------------------------------------------------------------");
     }
 }
@@ -84,34 +84,30 @@ public class LayananCRUD {
             return null;
         }
         for (PemesananLayananMUA p : daftarPesanan) {
-            if (p.getidPesanan().equals(getIdPesanan)) {
+            if (p.getIdPesanan().equals(getIdPesanan)) {
                 return p;
             }
         }
         return null;
     }
 
-    public void updatePemesanan(String getIdPesanan, String statusBaru, double hargaBaru) {
+    public void updatePemesanan(String getIdPesanan, String statusBaru) {
         PemesananLayananMUA p = cariPemesanan(getIdPesanan);
 
         if (p == null) {
             System.out.println("Pesanan dengan ID [" + getIdPesanan + "] tidak ditemukan.");
             return;
         }
-
-        if (hargaBaru < 0) {
-            System.out.println("Harga tidak boleh bernilai negatif!");
-            return;
-        }
-
-        p.setstatus(statusBaru);
-        p.settotalHarga(hargaBaru);
+        if (statusBaru == null || statusBaru.trim().isEmpty()) {
+        System.out.println("Tidak ada perubahan, status tetap \"" + p.getStatus() + "\".");
+        return;
+    }
+        p.setStatus(statusBaru);
         System.out.println("Data pesanan [" + getIdPesanan + "] berhasil diperbarui!");
     }
 
     public void hapusPemesanan(String idPesananCari) {
-        boolean berhasil = daftarPesanan.removeIf(p -> p.getidPesanan().equals(idPesananCari));
-
+        boolean berhasil = daftarPesanan.removeIf(p -> p.getIdPesanan().equals(idPesananCari));
         if (berhasil) {
             System.out.println("Pesanan [" + idPesananCari + "] berhasil dihapus!");
         } else {
